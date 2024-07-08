@@ -1,10 +1,10 @@
 use std::time::Duration;
 
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 use crate::torrent_state::live::peers::stats::snapshot::AggregatePeerStats;
 
-#[derive(Debug, Serialize, Default)]
+#[derive(Debug, Deserialize, Serialize, Default)]
 pub struct StatsSnapshot {
     pub downloaded_and_checked_bytes: u64,
 

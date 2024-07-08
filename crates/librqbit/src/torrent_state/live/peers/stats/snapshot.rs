@@ -1,10 +1,10 @@
 use std::sync::atomic::Ordering;
 
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 use super::atomic::AggregatePeerStatsAtomic;
 
-#[derive(Debug, Default, Serialize, PartialEq, Eq)]
+#[derive(Debug, Default, Deserialize, Serialize, PartialEq, Eq)]
 pub struct AggregatePeerStats {
     pub queued: usize,
     pub connecting: usize,

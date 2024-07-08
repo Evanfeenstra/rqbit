@@ -1,11 +1,11 @@
 use std::time::Duration;
 
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 use super::{live::stats::snapshot::StatsSnapshot, TorrentStateLive};
 use size_format::SizeFormatterBinary as SF;
 
-#[derive(Serialize, Default, Debug)]
+#[derive(Deserialize, Serialize, Default, Debug)]
 pub struct LiveStats {
     pub snapshot: StatsSnapshot,
     pub average_piece_download_time: Option<Duration>,
@@ -43,7 +43,7 @@ impl From<&TorrentStateLive> for LiveStats {
     }
 }
 
-#[derive(Clone, Copy, Serialize, Debug)]
+#[derive(Clone, Copy, Deserialize, Serialize, Debug)]
 pub enum TorrentStatsState {
     #[serde(rename = "initializing")]
     Initializing,
@@ -66,7 +66,7 @@ impl std::fmt::Display for TorrentStatsState {
     }
 }
 
-#[derive(Serialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 pub struct TorrentStats {
     pub state: TorrentStatsState,
     pub file_progress: Vec<u64>,
@@ -149,6 +149,7 @@ fn format_seconds_to_time(seconds: u64, f: &mut core::fmt::Formatter<'_>) -> cor
     }
 }
 
+#[derive(Deserialize)]
 pub struct DurationWithHumanReadable(Duration);
 
 impl core::fmt::Display for DurationWithHumanReadable {
@@ -181,7 +182,7 @@ impl Serialize for DurationWithHumanReadable {
     }
 }
 
-#[derive(Default)]
+#[derive(Default, Deserialize)]
 pub struct Speed {
     pub mbps: f64,
 }
