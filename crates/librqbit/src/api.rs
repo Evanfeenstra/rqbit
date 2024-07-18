@@ -250,13 +250,13 @@ impl Api {
     }
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct TorrentListResponseItem {
     pub id: usize,
     pub info_hash: String,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct TorrentListResponse {
     pub torrents: Vec<TorrentListResponseItem>,
 }
