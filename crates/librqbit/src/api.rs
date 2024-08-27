@@ -191,6 +191,7 @@ impl Api {
                 seen_peers: Some(seen_peers),
                 details: make_torrent_details(&info_hash, &info, only_files.as_deref())
                     .context("error making torrent details")?,
+                price_msat: None,
             },
             AddTorrentResponse::Added(id, handle) => {
                 let details = make_torrent_details(
@@ -209,6 +210,7 @@ impl Api {
                         .output_folder
                         .to_string_lossy()
                         .into_owned(),
+                    price_msat: None,
                 }
             }
         };
@@ -285,6 +287,8 @@ pub struct ApiAddTorrentResponse {
     pub details: TorrentDetailsResponse,
     pub output_folder: String,
     pub seen_peers: Option<Vec<SocketAddr>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub price_msat: Option<u64>,
 }
 
 fn make_torrent_details(
